@@ -20,8 +20,8 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: update
-    show-sql: true
+      ddl-auto: none // from update to none because we use mongodb no spring jpa -> fixing conflicts and disables disables Hibernate schema generation
+    show-sql: false
 
 feign:
   okhttp:
@@ -52,10 +52,10 @@ springdoc:
 
 logging:
   level:
-    root: ${LOG_ROOT}
-    org.springframework.web: ${LOG_WEB}
-    org.hibernate: ${LOG_HIBERNATE}
-    org.springframework: ${LOG_FRAMEWORK}
+    root: ${LOG_ROOT:DEBUG}
+    org.springframework.web: ${LOG_WEB:WARN}
+    org.hibernate: ${LOG_HIBERNATE:WARN}
+    org.springframework: ${LOG_FRAMEWORK:WARN}
 
 #endpoints:
 #  cors:

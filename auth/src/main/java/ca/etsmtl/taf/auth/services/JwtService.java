@@ -46,8 +46,7 @@ public class JwtService {
     UserClient userClient;
 
     public JwtResponse createJwtToken(LoginRequest authenticationRequest) throws Exception {
-        //System.out.println("1:: Try Connection from " + authenticationRequest.getUsername() + " / " + authenticationRequest.getPassword() + " / " + passwordEncoder.encode(authenticationRequest.getPassword()));
-        // this.log.debug("1:: Try Connection from {} / {} / {}", authenticationRequest.getUsername(), authenticationRequest.getPassword(), passwordEncoder.encode(authenticationRequest.getPassword()));
+        log.debug("1:: Try Connection from {} / {} / {}", authenticationRequest.getUsername(), authenticationRequest.getPassword(), passwordEncoder.encode(authenticationRequest.getPassword()));
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                 authenticationRequest.getUsername(), authenticationRequest.getPassword()));
 
@@ -55,7 +54,6 @@ public class JwtService {
 
         CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
 
-        //final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
         final String token = jwtUtil.generateToken(userDetails);
 
         final String refresh = jwtUtil.generateToken(userDetails);
@@ -102,8 +100,6 @@ public class JwtService {
 
 
         if(userDetails != null){
-            // Optional: Check if token is in DB and hasn't been used
-            // If valid, generate new tokens
             String newAccessToken = jwtUtil.generateToken(userDetails);
             String newRefreshToken = jwtUtil.generateToken(userDetails);
             List<String> roles = userDetails.getAuthorities().stream()

@@ -1,9 +1,15 @@
 server:
   port: 0
-
 spring:
   application:
     name: auth-test
+
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/testdb
+      auto-index-creation: true
+      embedded:
+        version: 6.0.5
 
 logging:
   level:
@@ -20,3 +26,4 @@ taf:
 eureka:
   client:
     enabled: false
+    jwtExpirationMs: 60000 # 1 min

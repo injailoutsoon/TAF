@@ -25,24 +25,17 @@ public class AuthGatewayApplication implements CommandLineRunner {
 	}
 
 
-	// MES MODIFICATION DEBUT
 	 @Override
     public void run(String... args) {
         System.out.println("Running startup script...");
-        this.createRoles();
+        this.createRoleIfNotFound(ERole.ROLE_ADMIN);
+        this.createRoleIfNotFound(ERole.ROLE_USER);
     }
 
-	//Create roles if not exits
-	private void createRoles(){
-        Optional<Role> userRoleExist = roleRepository.findByName(ERole.ROLE_USER);
+	private void createRoleIfNotFound(ERole eRole){
+        Optional<Role> userRoleExist = roleRepository.findByName(eRole);
         if(userRoleExist.isEmpty()){
             Role toSave = new Role(ERole.ROLE_USER);
-            roleRepository.save(toSave);
-        }
-
-        userRoleExist = roleRepository.findByName(ERole.ROLE_ADMIN);
-        if(userRoleExist.isEmpty()){
-            Role toSave = new Role(ERole.ROLE_ADMIN);
             roleRepository.save(toSave);
         }
 	}

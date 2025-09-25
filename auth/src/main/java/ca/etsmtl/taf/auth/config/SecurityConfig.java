@@ -55,9 +55,6 @@ public class SecurityConfig {
                         ).permitAll()
                         .anyRequest().authenticated()
                 )
-                /*.authorizeHttpRequests(auth -> auth
-                        .anyRequest().permitAll()
-                )*/
                 .exceptionHandling(ex -> ex
                         .accessDeniedHandler(customAccessDeniedHandler)
                         .authenticationEntryPoint(customAuthenticationEntryPoint)

@@ -22,14 +22,12 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        //System.out.println("2:: Try Connection from " + username);
+        log.debug("2:: Try Connection from {}", username);
         Optional<User> user = userRepository.findByUsernameOrEmail(username, username);
         if (user.isEmpty()) {
             throw new UsernameNotFoundException("User not found with username or email : " + username);
         }
+        log.debug("3:: Try Connection from {} / {}", user.get().getUsername(),  user.get().getPassword());
         return CustomUserDetails.build(user.get());
-        //System.out.println("3:: Try Connection from " + user.get().getUsername() + " / " + user.get().getPassword());
-        // this.log.debug("2:: Try Connection from {} / {}", user.get().getUsername(), user.get().getPassword());
-        //return new org.springframework.security.core.userdetails.User(user.get().getUsername(), user.get().getPassword(), new ArrayList<>());
     }
 }

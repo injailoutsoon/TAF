@@ -25,11 +25,7 @@ public class UserOldService {
     private PasswordEncoder passwordEncoder;
 
     public User save(SignupRequest signUpRequest) {
-        // Create new user's account
-        User user = new User(signUpRequest.getFullName(),
-                signUpRequest.getUsername(),
-                signUpRequest.getEmail(),
-                passwordEncoder.encode(signUpRequest.getPassword()));
+        User user = new User(signUpRequest.getFullName(), signUpRequest.getUsername(), signUpRequest.getEmail(), passwordEncoder.encode(signUpRequest.getPassword()));
         Set<String> strRoles = signUpRequest.getRole();
         Set<Role> roles = new HashSet<>();
         if (strRoles == null) {
